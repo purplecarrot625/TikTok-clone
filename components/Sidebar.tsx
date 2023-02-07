@@ -17,7 +17,7 @@ const Sidebar = () => {
 
     return (
         <div>
-            <div className="block xl:hidden m-2 ml-4 mt-3 text-xl" onClick={() => setShowSidebar((prev) => !prev)}> {/**call back function */}
+            <div className="block xl:hidden m-2 ml-4 mt-3 text-xl" onClick={() => setShowSidebar((prev) => !prev)}> {/**call back function 与prev state不同的时候切换，这是react中的要求 */}
                 {showSidebar ? <ImCancelCircle /> : <AiOutlineMenu />}
 
                 {/*for extra large device, sidebar hidden, the sidebar is only for small devices */}
@@ -25,8 +25,8 @@ const Sidebar = () => {
             {showSidebar && (
                 <div className="xl:w-400 w-20 flex flex-col justify-start mb-10 border-r-2 border-gray-100 xl:border-0 p-3">
                     <div className="xl:border-b-2 border-gray-200 xl:pb-4">
-                        <Link href="/">
-                            <div className={normalLink}> {/**create by our own--> const */}
+                        <Link href="/"> 
+                            <div className={normalLink}> 
                                 <p className="text-2xl">
                                     <AiFillHome />
                                 </p>

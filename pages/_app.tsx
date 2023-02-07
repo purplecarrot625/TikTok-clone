@@ -6,7 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import Navbar  from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 
-// SSR: Server Side Rendering
+// SSR: Server Side Rendering  es6 arrow function 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [isSSR, setIsSSR] = useState(true); // create useState, set True at the start, SSR at start
 
@@ -16,6 +16,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
   
   if(isSSR) return null; // If is server side rendering, we won't show our components
+  // Our component
   return (
     <GoogleOAuthProvider clientId= '721624696325-sila0a0au4tp82asrqp34ps333c0hfts.apps.googleusercontent.com'>
       <Navbar />

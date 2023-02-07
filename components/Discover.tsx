@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { topics } from '../utils/constants'
+import { useRouter } from 'next/router' // 实例化路由对象
+import { topics } from '../utils/constants' // tooic icons
 
 const Discover = () => {
     const router = useRouter()
