@@ -20,12 +20,14 @@ interface IProps {
 }
 // { } means destructure
 const Detail = ({ postDetails }: IProps) => {
-  const [post, setPost] = useState(postDetails); // if changed(liked), it can be updated
-  const [playing, setPlaying] = useState(false);
-  const [isVideoMuted, setIsVideoMuted] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null); // First set as null, met the problem that.pause,never... So there must be a type for videoRef
-  const router = useRouter();
-  const {userProfile}:any = useAuthStore();
+  const [post, setPost] = useState(postDetails) // if changed(liked), it can be updated
+  const [playing, setPlaying] = useState(false)
+  const [isVideoMuted, setIsVideoMuted] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null) // First set as null, met the problem that.pause,never... So there must be a type for videoRef
+  const router = useRouter()
+  const {userProfile}:any = useAuthStore()
+  const [comment, setComment] = useState('')
+  const [isPostingComment, setIsPostingComment] = useState(false)
 
   const onVideoClick = () => {
     if (playing) {
@@ -52,6 +54,23 @@ const handleLike = async (like: boolean) => {
         like
       });
       setPost({ ...post, likes: res.data.likes });
+    }
+  }
+
+  // - HANDLE ADD COMMENT
+  const addComment = async (e)=> {
+    e.preventDefault() // submit event,otherwise website will reload
+
+    if(userProfile && comment) {
+      setIsPostingComment(true)
+
+      const { data } = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+      userId: userProfile._id,
+      comment})
+
+      setPost({ ...post, comments: data.comments });
+      setComment('')
+      setIsPostingComment(false)
     }
   }
 
@@ -145,17 +164,21 @@ const handleLike = async (like: boolean) => {
             </p>
             {/** LIKE */}
             <div className="mt-10 px-10">
-                {userProfile && 
+                {userProfile && (
                     <LikeButton 
                         likes = {post.likes}
                         handleLike={() => handleLike(true)}
                         handleDislike={() => handleLike(false)} // pass params, check button component
                     />
-                }
+                )}
             </div>
             {/** COMMENT */}
             <Comments 
-
+              comment = {comment}
+              setComment = {setComment}
+              addComment = {addComment}
+              comments = {post.comments}
+              isPostingComment = {isPostingComment}
             />
 
         </div>
