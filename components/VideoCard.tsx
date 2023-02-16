@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Video } from '../type'
+import { Video } from '../types'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'

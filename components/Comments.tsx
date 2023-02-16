@@ -5,7 +5,7 @@ import { GoVerified } from "react-icons/go";
 
 import useAuthStore from "../store/authStore";
 import NoResults from "./NoResults";
-import { IUser } from "../type";
+import { IUser } from "../types";
 
 interface IProps {
   isPostingComment: Boolean;

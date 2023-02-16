@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import axios from 'axios'
-import { Video } from '../type'
+import { Video } from '../types'
 import VideoCard from '../components/VideoCard'
 import NoResults from '../components/NoResults'
 import { BASE_URL} from '../utils'

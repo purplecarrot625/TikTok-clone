@@ -9,7 +9,7 @@ import { BsFillPlayFill, BsPlayFill } from "react-icons/bs";
 import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
 import axios from "axios";
 import { BASE_URL } from "../../utils";
-import { Video } from "../../type";
+import { Video } from "../../types";
 import useAuthStore from "../../store/authStore"; // Zustand user auth
 import LikeButton from "../../components/LikeButton";
 import Comments from "../../components/Comments";
