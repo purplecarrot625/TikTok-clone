@@ -19,9 +19,9 @@ sanitybackend/node_modules
 # misc
 .DS_Store
 *.pem
-.env
-.env.production
-.env.development
+#.env
+#.env.production
+#.env.development
 
 # debug
 npm-debug.log*

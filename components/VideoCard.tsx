@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Video } from '../type'
+import { Video } from '../types'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ interface IProps {
 const VideoCard: NextPage<IProps> = ({ post }) => {
     const [isHover, setIsHover] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
-    const [isMuted, setIsMuted] = useState(false)
+    const [isVideoMuted, setIsVideoMuted] = useState(false)
 
     const videoRef = useRef<HTMLVideoElement>(null)
     {/** This videoRef is an attach to the HTMLVideoElement, which has the pause and play property */}
@@ -28,13 +28,19 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             setIsPlaying(true)
         }
     }
+    // useEffect will be called when we change the value of isVideoMuted 
+    useEffect(() => {
+        if(videoRef?.current) {
+            videoRef.current.muted = isVideoMuted
+        }
+    }, [isVideoMuted])
 
     return (
         <div className=' flex flex-col border-b-2 border-gray-200 pb-6'>
             <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
-                <div className='md: w-16 md: h-16 w-10 h-10'>
+                <div className='md:w-16 md:h-16 w-10 h-10'>
                     {/** avatar */}
-                    <Link href="/">
+                    <Link href={`/profile/${post.postedBy._id}`}>
                         <>
                             <Image
                                 width={62}
@@ -49,7 +55,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                 </div>
                 <div>
                     {/** user name */}
-                    <Link href="/">
+                    <Link href={`/profile/${post.postedBy._id}`}>
                         <div className='flex items-center gap-2'>
                             <p className='flex gap-2 items-center md:text-md font-bold text-primary'>{post.postedBy.userName} {` `}
                                 <GoVerified className='text-blue-400 text-md' />
@@ -65,12 +71,12 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
                     className='rounded-3xl'>
-                    <Link href="/">
+                    <Link href={`/detail/${post._id}`}>
                         <video
                             src={post.video.asset.url}
                             loop
                             ref={videoRef}
-                            className='lg:w-[600px] h-[300]px md:h-[400px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
+                            className='lg:w-[700px] h-[300]px md:h-[400px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
                         >
                         </video>
                     </Link>
@@ -90,14 +96,14 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                             )
                             }
 
-                            {isMuted ? (
-                                <button onClick={() => setIsMuted(false)}>
+                            {isVideoMuted ? (
+                                <button onClick={() => setIsVideoMuted(false)}>
                                     <HiVolumeOff
                                         className='text-black text-2xl lg:text-4xl'
                                     />
                                 </button>
                             ) : (
-                                <button onClick={() => setIsMuted(true)}>
+                                <button onClick={() => setIsVideoMuted(true)}>
                                     <HiVolumeUp
                                         className='text-black text-2xl lg:text-4xl' />
                                 </button>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 export const createOrGetUser =async (response: any, addUser: any) => {
   // credential里面包含了用户信息，我们将他解码
@@ -17,5 +18,5 @@ export const createOrGetUser =async (response: any, addUser: any) => {
 
   addUser(user)
 
-  await axios.post(`http://localhost:3000/api/auth`, user) //接下来创建该路径
+  await axios.post(`${BASE_URL}/api/auth`, user) //接下来创建该路径
 }; //jwt
